@@ -1,0 +1,21 @@
+{
+  "name": "webudp",
+  "version": "1.0",
+  "description": "Library for maintaining a client-server UDP data connection using WebRTC",
+  "authors": [
+    "xlexious <alex@sorlie.io>"
+  ],
+  "license": "BSD-3",
+  "keywords": [],
+  "homepage": "",
+  "bugs": {
+    "url": ""
+  },
+  "main": "WebUDP",
+  "dependencies": {
+    "ws": "^7.1.2"
+  },
+  "engines": {
+    "node": "12.6"
+  }
+}
