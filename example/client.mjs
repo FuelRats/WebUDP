@@ -1,4 +1,4 @@
-'use strict'
+import UDPConnection from '../dist/webudp-browser.mjs'
 
 ;(function () {
   const ws = new WebSocket('ws://127.0.0.1:8080')
@@ -21,30 +21,17 @@
         }))
       }
     })
-
-
-  }
-
-  ws.onclose = (event) => {
-
-  }
-
-  ws.onerror = (event) => {
-
   }
 
   ws.onmessage = (event) => {
-    console.log(event)
     const data = JSON.parse(event.data)
     switch (data.command) {
       case 'answer': {
-        console.log('received answer')
         dataConnection.answer(data.answer)
         break
       }
 
       case 'candidate': {
-        console.log('received candidate')
         dataConnection.addCandidate(data.candidate)
         break
       }

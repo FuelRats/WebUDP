@@ -2,6 +2,10 @@
   "name": "webudp",
   "version": "1.0",
   "description": "Library for maintaining a client-server UDP data connection using WebRTC",
+  "browser": "dist/webudp-browser.js",
+  "main": "dist/webudp-node.js",
+  "module": "dist/webudp-node.mjs",
+  "build": "rollup -config",
   "authors": [
     "xlexious <alex@sorlie.io>"
   ],
@@ -14,9 +18,12 @@
   "bugs": {
     "url": ""
   },
-  "main": "WebUDP",
   "dependencies": {
+    "wrtc": "latest",
     "ws": "^7.1.2"
+  },
+  "devDependencies": {
+    "rollup": "^1.21.4"
   },
   "engines": {
     "node": "12.6"

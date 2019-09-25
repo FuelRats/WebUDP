@@ -145,6 +145,7 @@ fabric.properties
 
 # SonarQube Plugin
 
+
 # Markdown Navigator plugin
 
 ### macOS ###
@@ -327,3 +328,4 @@ public/
 # End of https://www.gitignore.io/api/node,macos,intellij,webstorm,jetbrains
 
 yarn.lock
+dist/*

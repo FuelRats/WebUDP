@@ -1,6 +1,6 @@
 'use strict'
-import WebSocket from 'ws'
-import UDPConnection from '../'
+const WebSocket = require('ws')
+const UDPConnection = require('../dist/webudp-node')
 
 const connections = []
 
@@ -31,7 +31,6 @@ wss.on('connection', function connection (ws) {
 
     switch (data.command) {
       case 'offer': {
-        console.log('received offer')
         dataConnection = new UDPConnection({
           offer: data.offer,
           stunServers: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'],
@@ -53,7 +52,6 @@ wss.on('connection', function connection (ws) {
       }
 
       case 'candidate':
-        console.log('received candidate')
         dataConnection.addCandidate(data.candidate)
         break
 
