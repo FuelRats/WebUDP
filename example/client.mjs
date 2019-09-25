@@ -7,7 +7,7 @@ import UDPConnection from '../dist/webudp-browser.mjs'
 
   ws.onopen = (event) => {
     dataConnection = new UDPConnection({
-      stunServers: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'],
+      iceServers: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'],
       onOffer: (offer) => {
         ws.send(JSON.stringify({
           command: 'offer',

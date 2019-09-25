@@ -1,5 +1,4 @@
 {
-  "parser": "babel-eslint",
   "env": {
     "node": true,
     "es6": true
@@ -389,10 +388,6 @@
     "max-lines": [
       "warn",
       500
-    ],
-    "max-lines-per-function": [
-      "warn",
-      100
     ],
     "max-nested-callbacks": [
       "warn",

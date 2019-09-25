@@ -1,22 +1,48 @@
-export default ({ RTCPeerConnection, RTCSessionDescription }) => {
+const UDPConnectionWrapper = ({ RTCPeerConnection, RTCSessionDescription }) => {
+  /**
+   * @classdesc UDP connection instances
+   * @class
+   */
   return class UDPConnection {
+    /**
+     *
+     * @param {object} options configuration object.
+     * @param {[string]} options.iceServers a list of STUN/TURN servers to use for negotiation.
+     * @param {UDPConnection~candidateCallback} options.onCandidate
+     * @param {object} [options.offer] Instantiates the UDP connection with an offer from another UDP connection.
+     * @param {UDPConnection~offerCallback} [options.onOffer]
+     * @param {UDPConnection~answerCallback} [options.onAnswer]
+     * @constructor
+     */
     constructor  (options) {
       const configuration = {
         'iceServers': [
-          { 'urls': options.stunServers }
+          { 'urls': options.iceServers }
         ]
       }
 
+      /**
+       * A WebRTC offer callback
+       * @callback UDPConnection~offerCallback
+       * @param {object} offer an offer object
+       */
       this.onOfferCallback = options.onOffer
+      /**
+       * @callback UDPConnection~answerCallback
+       * @param {object} answer a WebRTC answer object
+       */
       this.onAnswerCallback = options.onAnswer
+      /**
+       * A WebRTC candidate negotiation callback
+       * @callback UDPConnection~candidateCallback
+       * @param {object} candidate an ICE candidate
+       */
       this.onCandidateCallback = options.onCandidate
 
       this.peerConnection = new RTCPeerConnection(configuration)
       this.peerConnection.onicecandidate = this.onIceCandidate.bind(this)
       this.peerConnection.onicecandidateerror = this.onIceCandidateError.bind(this)
       this.peerConnection.onnegotiationneeded = this.onNegotiationNeeded.bind(this)
-      this.peerConnection.oniceconnectionstatechange = this.onIceConnectionChange.bind(this)
-      this.peerConnection.onicegatheringstatechange = this.onIceGatheringChange.bind(this)
       this.peerConnection.ondatachannel = this.onDataChannel.bind(this)
 
 
@@ -61,14 +87,6 @@ export default ({ RTCPeerConnection, RTCSessionDescription }) => {
       console.error('ice candidate error', event)
     }
 
-    onIceConnectionChange (event) {
-      console.log('ice connection change', event)
-    }
-
-    onIceGatheringChange (event) {
-      console.log('ice gathering change', event)
-    }
-
     onNegotiationNeeded (event) {
       console.log('negotiation needed', event)
     }
@@ -78,7 +96,6 @@ export default ({ RTCPeerConnection, RTCSessionDescription }) => {
     }
 
     onDataConnectionOpened (event) {
-      this.channel.send('Your face is a UDP packet')
 
     }
 
@@ -95,11 +112,11 @@ export default ({ RTCPeerConnection, RTCSessionDescription }) => {
     }
 
     addCandidate (candidate) {
-      this.peerConnection.addIceCandidate(candidate)
+      return this.peerConnection.addIceCandidate(candidate)
     }
 
     answer (answer) {
-      this.peerConnection.setRemoteDescription(answer)
+      return this.peerConnection.setRemoteDescription(answer)
     }
 
     send (data) {
@@ -115,3 +132,5 @@ export default ({ RTCPeerConnection, RTCSessionDescription }) => {
     }
   }
 }
+
+export default UDPConnectionWrapper

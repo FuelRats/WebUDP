@@ -33,7 +33,7 @@ wss.on('connection', function connection (ws) {
       case 'offer': {
         dataConnection = new UDPConnection({
           offer: data.offer,
-          stunServers: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'],
+          iceServers: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'],
           onCandidate: (candidate) => {
             ws.send(JSON.stringify({
               command: 'candidate',
